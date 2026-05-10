@@ -199,6 +199,25 @@
       toggleEmptyMessage();
     }
 
+// ── 6. LOCAL STORAGE HELPERS ────────────────────────────────────────
 
+    function saveTask(task) {
+      const tasks = getSavedTasks();    
+      tasks.push(task);                
+      localStorage.setItem('studentTasks', JSON.stringify(tasks));  
+    }
+
+    function getSavedTasks() {
+      const raw = localStorage.getItem('studentTasks');
+      return raw ? JSON.parse(raw) : [];   
+    }
+
+
+    // ── 7.   Shows "No tasks yet" when the grid is empty, hides it otherwise.
+
+    function toggleEmptyMessage() {
+      const hasCards = taskList.children.length > 0;
+      emptyMsg.style.display = hasCards ? 'none' : 'block';
+    }
 </body>
 </html>
