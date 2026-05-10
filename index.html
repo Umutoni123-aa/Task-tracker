@@ -96,11 +96,59 @@
       <!-- Grid container  -->
       <div id="task-list" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
     </section>
+    </main>
+
+<!-- JAVASCRIPT -->
+  <script>
+
+    // ── 1. GRAB REFERENCES TO DOM ELEMENTS ────────────
+
+    const taskInput  = document.getElementById('task-input');   
+    const dateInput  = document.getElementById('date-input');   
+    const addBtn     = document.getElementById('add-btn');      // submit button
+    const taskList   = document.getElementById('task-list');    // grid container
+    const errorMsg   = document.getElementById('error-msg');    
+    const emptyMsg   = document.getElementById('empty-msg');    
 
 
+    // ── 2. LOAD TASKS FROM LOCAL STORAGE ON PAGE START ──────────────────
+
+    window.addEventListener('load', () => {
+      const saved = getSavedTasks();   
+      saved.forEach(task => renderTask(task));  
+      toggleEmptyMessage();            // show/hide the "no tasks" hint
+    });
 
 
+    // ── 3. ADD BUTTON CLICK HANDLER ─────────────────────────────────────
 
+    addBtn.addEventListener('click', () => {
+
+      const name = taskInput.value.trim(); 
+      const date = dateInput.value;         // format: "YYYY-MM-DD"
+
+      if (!name || !date) {
+        errorMsg.classList.remove('hidden');  // show red error banner
+        return;                            
+      }
+
+      errorMsg.classList.add('hidden');
+
+      const task = {
+        id:   Date.now(),   
+        name: name,
+        date: date
+      };
+
+      // Save to Local Storage first, then draw on screen
+      saveTask(task);
+      renderTask(task);
+      toggleEmptyMessage();
+
+      // Clear both inputs so they're ready for the next task
+      taskInput.value = '';
+      dateInput.value = '';
+    });
 
 
 
