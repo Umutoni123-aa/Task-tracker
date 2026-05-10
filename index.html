@@ -39,5 +39,51 @@
       Add your assignments, projects, and deadlines. Never miss a due date again.
     </p>
   </header>
+<!--  TASK ENTRY FORM -->
+  <main class="max-w-4xl mx-auto px-6 py-10">
+
+    <section class="bg-white rounded-2xl shadow-md p-8 mb-10">
+      <h2 class="text-2xl font-semibold mb-6 text-indigo-700">* Add a New Task</h2>
+
+      <div
+        id="error-msg"
+        class="hidden mb-5 bg-red-100 border border-red-400 text-red-700 rounded-lg px-4 py-3 text-sm"
+      >
+        NOTE: Please fill in <strong>both</strong> the task name and a due date before submitting.
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4">
+
+        <input
+          id="task-input"
+          type="text"
+          placeholder="e.g. Finish HTML assignment"
+          class="flex-1 border border-slate-300 rounded-xl px-4 py-3
+                 focus:outline-none focus:ring-2 focus:ring-indigo-400
+                 text-slate-700 placeholder-slate-400"
+        />
+
+        <!-- Due date picker -->
+        <input
+          id="date-input"
+          type="date"
+          class="border border-slate-300 rounded-xl px-4 py-3
+                 focus:outline-none focus:ring-2 focus:ring-indigo-400
+                 text-slate-700"
+        />
+
+        <!-- Submit button -->
+        <button
+          id="add-btn"
+          class="bg-indigo-600 hover:bg-indigo-700 active:scale-95
+                 text-white font-semibold px-6 py-3 rounded-xl
+                 transition-all duration-150 whitespace-nowrap"
+        >
+          Add Task
+        </button>
+
+      </div>
+    </section>
+
 </body>
 </html>
