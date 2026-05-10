@@ -150,6 +150,54 @@
       dateInput.value = '';
     });
 
+ // ── 4. RENDER A SINGLE TASK CARD ───────────────────────────────────
+    function renderTask(task) {
+
+      // Format the date nicely
+      const prettyDate = new Date(task.date + 'T00:00:00')
+        .toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+
+      // Create the card <div>
+      const card = document.createElement('div');
+      card.className = 'task-card bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col gap-3';
+
+      // Store the task's ID on the element so we can find it when deleting
+      card.dataset.id = task.id;
+
+      // Fill the card's inner HTML with the task name, date, and delete button
+      card.innerHTML = `
+        <div class="flex items-start justify-between gap-2">
+          <p class="text-slate-800 font-semibold text-base leading-snug">${escapeHTML(task.name)}</p>
+          <button
+            class="delete-btn flex-shrink-0 text-xs bg-red-100 hover:bg-red-200
+                   text-red-600 font-semibold px-3 py-1 rounded-lg transition-colors"
+            aria-label="Delete task"
+          >
+            Delete
+          </button>
+        </div>
+        <p class="text-indigo-500 text-sm font-medium"> Due: ${prettyDate}</p>
+      `;
+
+      card.querySelector('.delete-btn').addEventListener('click', () => {
+        deleteTask(task.id, card);
+      });
+
+      taskList.appendChild(card);
+    }
+
+
+    // ── 5. DELETE A TASK ────────────────────────────────────────────────.
+
+    function deleteTask(id, cardElement) {
+   
+      cardElement.remove();
+
+      const updated = getSavedTasks().filter(task => task.id !== id);
+      localStorage.setItem('studentTasks', JSON.stringify(updated));
+
+      toggleEmptyMessage();
+    }
 
 
 </body>
